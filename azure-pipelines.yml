@@ -17,8 +17,7 @@ pr:
 
 variables:
 - name: artifact_branch
-  value: string
-  default: 'refs/heads/master'
+  value: 'refs/heads/master'
 
 stages:
 - stage: Build
