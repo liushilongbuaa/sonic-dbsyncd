@@ -7,11 +7,18 @@ trigger:
   branches:
     include:
     - master
+    - 202???
 
 pr:
   branches:
     include:
     - master
+    - 202???
+
+variables:
+- name: artifact_branch
+  value: string
+  default: 'refs/heads/master'
 
 stages:
 - stage: Build
@@ -31,15 +38,21 @@ stages:
       clean: true
       submodules: recursive
       displayName: 'Checkout code'
+    - script: |
+        if [[ "$(Build.SourceBranch)" != *pull* ]];then
+          echo "##vso[task.setvariable variable=artifact_branch]$(Build.SourceBranch)"
+          echo $(artifact_branch)
+        fi
+      displayName: 'Set download artifact branch'
 
     - task: DownloadPipelineArtifact@2
       inputs:
         source: specific
         project: build
-        pipeline: 1
+        pipeline: 142
         artifact: sonic-buildimage.vs
         runVersion: 'latestFromBranch'
-        runBranch: 'refs/heads/master'
+        runBranch: $(artifact_branch)
       displayName: "Download sonic buildimage"
 
     - script: |
