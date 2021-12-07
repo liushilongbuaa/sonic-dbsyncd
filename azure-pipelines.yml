@@ -40,8 +40,8 @@ stages:
     - script: |
         if [[ "$(Build.SourceBranch)" != *pull* ]];then
           echo "##vso[task.setvariable variable=artifact_branch]$(Build.SourceBranch)"
-          echo $(artifact_branch)
         fi
+        echo $(artifact_branch)
       displayName: 'Set download artifact branch'
 
     - task: DownloadPipelineArtifact@2
