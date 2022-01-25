@@ -68,6 +68,7 @@ steps:
 
 - script: |
     set -xe
+    find target
     sudo pip3 install swsssdk-2.0.1-py3-none-any.whl
   workingDirectory: $(Pipeline.Workspace)/target/python-wheels/buster/
   displayName: 'Install Python dependencies'
