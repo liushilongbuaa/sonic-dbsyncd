@@ -62,14 +62,14 @@ steps:
 - script: |
     set -xe
     sudo apt-get -y purge libhiredis-dev libnl-3-dev libnl-route-3-dev
-    find . -name "*.deb" | xargs -i sudo dpkg -i {}
+    sudo dpkg -i $(find . -name "*.deb")
   workingDirectory: $(Pipeline.Workspace)/target/
   displayName: 'Install Debian dependencies'
 
 - script: |
     set -xe
     find target
-     find . -name "swsssdk-2.0.1-py3-none-any.whl" | xargs -i sudo pip3 install {}
+    sudo pip3 install $(find . -name "swsssdk-2.0.1-py3-none-any.whl")
   workingDirectory: $(Pipeline.Workspace)/target/
   displayName: 'Install Python dependencies'
 
