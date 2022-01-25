@@ -62,15 +62,15 @@ steps:
 - script: |
     set -xe
     sudo apt-get -y purge libhiredis-dev libnl-3-dev libnl-route-3-dev
-    sudo dpkg -i *.deb
-  workingDirectory: $(Pipeline.Workspace)/target/debs/buster/
+    find . -name "*.deb" | xargs -i sudo dpkg -i {}
+  workingDirectory: $(Pipeline.Workspace)/target/
   displayName: 'Install Debian dependencies'
 
 - script: |
     set -xe
     find target
-    sudo pip3 install swsssdk-2.0.1-py3-none-any.whl
-  workingDirectory: $(Pipeline.Workspace)/target/python-wheels/buster/
+     find . -name "swsssdk-2.0.1-py3-none-any.whl" | xargs -i sudo pip3 install {}
+  workingDirectory: $(Pipeline.Workspace)/target/
   displayName: 'Install Python dependencies'
 
 - script: |
