@@ -32,6 +32,7 @@ container:
 
 steps:
 - script: |
+    set -x
     ls $(Build.ArtifactStagingDirectory) -al
     find $(Build.ArtifactStagingDirectory)
     exit 1
